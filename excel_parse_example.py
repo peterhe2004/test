@@ -19,13 +19,13 @@ df['E'] = ''
 copy_flag = False
 
 for i, row in df.iterrows():
-    if row['A'].startswith('ca0'):
+    if row['A'].startswith('Gi0'):
         copy_flag = True
         copied_value = row['A']
     elif copy_flag:
         df.at[i, 'E'] = copied_value
 
-df = df[df['A'].apply(lambda x: not x.startswith('ca0'))]
+df = df[df['A'].apply(lambda x: not x.startswith('Gi0'))]
 
 
 
