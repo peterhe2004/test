@@ -2,6 +2,19 @@ import pandas as pd
 import sys
 
 
+# Read the Excel file
+df = pd.read_excel('path/to/input_file.xlsx')
+
+# Convert all columns to string format
+df = df.astype(str)
+
+# Merge columns D, E, and F into a new column 'Merged'
+df['Merged'] = df['D'] + ' ' + df['E'] + ' ' + df['F']
+
+# Export the updated DataFrame to a new Excel file with verbose output
+df.to_excel('path/to/output_file.xlsx', index=False, verbose=True)
+
+
 print(df.columns)
 
 df = df.rename(columns={'Column1': 'A', 'Column2': 'B', 'Column3': 'C', ...})
