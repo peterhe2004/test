@@ -61,3 +61,30 @@ df.loc[(condition2.shift(-1).fillna(0).astype(bool)) & (df.index <= max_line_num
 
 # Display the updated DataFrame
 print(df)
+
+
+
+
+
+
+
+
+import pandas as pd
+
+# Load the Excel file into a pandas DataFrame
+df = pd.read_excel('shCDP.xlsx')
+
+# Define the maximum line number
+max_line_number = 10  # Adjust this value as per your requirement
+
+# Iterate over the rows of the DataFrame
+for i in range(1, len(df)):
+    # Check the conditions for copying
+    if pd.isna(df.at[i, 'A']) and not pd.isna(df.at[i-1, 'A']) and df.loc[i, 'B':'E'].notnull().any():
+        df.at[i, 'A'] = df.at[i-1, 'A']  # Copy the content from cell A1 to A2
+
+# Save the updated DataFrame to a new Excel file
+df.to_excel('shCDP_v1.xlsx', index=False)
+
+# Display the updated DataFrame
+print(df)
