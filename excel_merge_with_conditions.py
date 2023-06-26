@@ -92,3 +92,26 @@ df.to_excel('shCDP_v1.xlsx', index=False)
 
 # Display the updated DataFrame
 print(df)
+
+
+
+
+
+import pandas as pd
+
+# Load the Excel file into a pandas DataFrame
+df = pd.read_excel('your_file.xlsx')
+
+# Define your conditions. Replace 'your_condition' with actual checks.
+condition1 = df.at[i, 2] == 'S' and df.iloc[i, 3] == '-'
+condition2 = df.at[i, 2] == 'nan' and df.iloc[i, 3] == 'nan'
+condition3 = df.at[i, 2] == 'D' and df.iloc[i, 3] == '-'
+
+for i in range(0, len(df)-1, 1)
+    if condition1 or condition2 or condition3:
+        df = df.drop(i)
+
+df = df.reset_index(drop=True)
+
+df.to_excel('your_file_updated.xlsx', index=False)
+
