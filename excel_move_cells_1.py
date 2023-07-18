@@ -1,13 +1,14 @@
 import openpyxl
+import pandas as pd
 
 # Load the Excel workbook
-workbook = openpyxl.load_workbook('your_file.xlsx')
+workbook = openpyxl.load_workbook('pdtest1.xlsx')
 
 # Select the desired sheet
-sheet = workbook['Sheet1']  # Replace 'Sheet1' with your sheet name
+sheet = workbook['pdtest1']  # Replace 'Sheet1' with your sheet name
 
 # Define the list of cell addresses you want to move
-cell_addresses = ['B2', 'V2', 'D2']  # Add more cell addresses if needed
+cell_addresses = ['B3', 'C3', 'D3']  # Add more cell addresses if needed
 
 # Iterate over the cell addresses
 for cell_address in cell_addresses:
@@ -17,4 +18,4 @@ for cell_address in cell_addresses:
     source_cell.value = None
 
 # Save the modified workbook
-workbook.save('your_file_modified.xlsx')
+workbook.save('pdtest2.xlsx')
