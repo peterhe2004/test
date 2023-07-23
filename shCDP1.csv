@@ -1,0 +1,11 @@
+index,device,c,d,neighbor,local_port
+ca1001,ca1001sw1,nan,nan,SEPnsw1,g1/0/1
+ca1001,ca1001sw1,nan,nan,SEPnsw2,g1/0/2
+ca1001,ca1001sw1,nan,nan,SEPnap1,g1/0/7
+ca1001,ca1001sw2,nan,nan,nap2,g1/0/7
+ca1001,ca1001sw2,nan,nan,nap3,g1/0/8
+ca2001,ca2001sw2,nan,nan,SEP2001sw1,g1/0/47
+ca2001,ca2001sw2,nan,nan,SEP2001sw2,g1/0/48
+ca2001,ca2001sw3,,,nap3,g1/0/8
+ca2001,ca2001sw3,,,SEP2001sw1,g1/0/45
+ca2001,ca2001sw4,,,SEP2001sw2,g1/0/46
