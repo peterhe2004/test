@@ -1,6 +1,6 @@
-Filtered Rows:
-{% for row in data %}
-{% if row['status'] != 'not' and row['device'] == 'WAP' %}
+{% for row in data -%}
+{#% if row['status'] != 'not' and row['device'] == 'WAP' %#}
+{% if row['status'] != 'not'  -%}
 SW: {{ row['sw'] }}, Port: {{ row['port'] }}, Status: {{ row['status'] }}, Device: {{ row['device'] }}
-{% endif %}
-{% endfor %}
+{%- endif %}
+{%- endfor %}
