@@ -15,6 +15,3 @@ template = env.get_template('port_mapping_plan.j2')
 output = template.render(data=data)
 e = open(os.path.join("testMapping.csv"), 'w')
 e.write(output)
-
-# Print the output
-print(output)
