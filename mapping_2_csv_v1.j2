@@ -1,0 +1,6 @@
+Device from csv1  | IP from csv1  | Device from csv2  | MAC from csv2
+----------------------------------------------------------------------
+
+{% for row1, row2 in combined_data %}
+{{ row1['device'] }}  |  {{ row1['ip'] }}  |  {{ row2['device'] }}  |  {{ row2['mac'] }}
+{% endfor %}

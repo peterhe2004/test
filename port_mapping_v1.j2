@@ -1,0 +1,6 @@
+{%- for row in group -%}
+{%- if row.status != 'not' and row.device -%}
+{#% if row.status != 'not'  -%#}
+SW: {{ row.sw }}, Port: {{ row.port }}, Status: {{ row.status }}, Device: {{ row.device }}
+{%- endif -%}
+{%- endfor -%}
