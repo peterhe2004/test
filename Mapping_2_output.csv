@@ -1,0 +1,5 @@
+sw from csv1  | device from csv1  | sw from csv2  | device from csv2
+----------------------------------------------------------------------
+
+
+g1/0/1  |  WAP  |  g1/0/7  |  WAP

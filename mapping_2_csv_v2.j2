@@ -1,0 +1,6 @@
+sw from csv1  | device from csv1  | sw from csv2  | device from csv2
+----------------------------------------------------------------------
+
+{% for row1, row2 in combined_data %}
+{{ row1['port'] }}  |  {{ row1['device'] }}  |  {{ row2['port'] }}  |  {{ row2['device'] }}
+{% endfor %}

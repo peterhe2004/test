@@ -9,7 +9,7 @@ with open('shCDP5.csv', 'r') as f:
 
 # Set up Jinja2 environment and load the template
 env = Environment(loader=FileSystemLoader('.'))
-template = env.get_template('port_mapping_plan.j2')
+template = env.get_template('port_mapping_v1.j2')
 
 # Render the template
 output = template.render(data=data)

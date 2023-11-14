@@ -19,7 +19,7 @@ combined_data = zip(data1, data2)
 
 # Setup Jinja2
 env = Environment(loader=FileSystemLoader('.'))
-template = env.get_template('mapping_2_csv_v1.j2')
+template = env.get_template('mapping_2_csv_v2.j2')
 
 # Render the template
 output = template.render(combined_data=combined_data)
