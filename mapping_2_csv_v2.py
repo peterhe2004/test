@@ -6,7 +6,7 @@ def read_csv(filename, filter_value):
     with open(filename, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row['device'] == filter_value:
+            if filter_value.lower() in row['device'].lower():
                 data.append(row)
     return data
 

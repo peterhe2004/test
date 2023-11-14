@@ -1,3 +1,4 @@
 sw,port,status,device
-101,g1/0/1,connected,WAP
-101,g1/0/2,not,WAP
+101,g1/0/1,connected,WAP1
+101,g1/0/2,not,WAP2
+101,g1/0/3,connected,WAP3
