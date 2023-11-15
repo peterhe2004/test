@@ -1,7 +1,7 @@
 sw,port,status,device
-202,g1/0/4,connected,WAP1
+202,g1/0/4,connected,FL2_WAP
 202,g1/0/5,connected,WAP2
-202,g1/0/6,connected,WAP3
+202,g1/0/6,connected,FL1_WAP1
 202,g1/0/16,connected,DVR1
 202,g1/0/23,connected,DVR2
 202,g1/0/26,connected,printer
