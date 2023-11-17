@@ -1,0 +1,4 @@
+sw,port,status,device
+102,g1/0/7,connected,printer
+102,g1/0/7,connected,WAP
+102,g1/0/7,connected,DVR
