@@ -14,7 +14,7 @@ def read_csv(filename):
 
 # Setup Jinja2
 env = Environment(loader=FileSystemLoader('.'))
-template = env.get_template('mapping_2_csv_v2.j2')
+template = env.get_template('mpv3.j2')
 
 # Read data2
 data2 = read_csv('SW_template_mapping.csv')

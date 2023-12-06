@@ -20,8 +20,8 @@ env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('mapping_2_csv_v2.j2')
 
 # List of filter values and unique identifier column name
-filter_values = ['WAP', 'DVR', 'printer']
-unique_id_column = 'port'  # Replace with your actual unique identifier column name
+filter_values = ['WAP', 'AnotherValue', 'YetAnotherValue']
+unique_id_column = 'unique_id'  # Replace with your actual unique identifier column name
 
 # Read data2
 data2 = read_csv_to_dict('SW_template_mapping.csv', filter_values, unique_id_column)
@@ -32,26 +32,16 @@ for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         data1 = read_csv_to_dict(file_path, filter_values, unique_id_column)
 
-        # Debugging: Print the number of rows read from each file
-        print(f"Rows read from {filename}: {len(data1)}")
-        print(f"Rows in data2: {len(data2)}")
-
         # Match and combine data
         combined_data = []
         for unique_id, row1 in data1.items():
             row2 = data2.get(unique_id)
             if row2:
                 combined_data.append((row1, row2))
-            else:
-                # Debugging: Print unmatched unique IDs
-                print(f"Unmatched ID in {filename}: {unique_id}")
 
         # Render the template
         output = template.render(combined_data=combined_data)
-
-        # Debugging: Check if combined data is empty
-        if not combined_data:
-            print(f"No matching data found for {filename}")
+        print(output)
 
         # Write to a separate output file for this CSV
         with open(os.path.join(folder_path, f'{filename}_output.csv'), 'w') as e:

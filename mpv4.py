@@ -14,13 +14,20 @@ def read_csv(filename):
 
 # Setup Jinja2
 env = Environment(loader=FileSystemLoader('.'))
-template = env.get_template('mapping_2_csv_v2.j2')
-
-# List of filter values
-filter_values = ['WAP1', 'WAP2', 'DVR', 'printer']  # Updated to include WAP1 and WAP2
+# template1 = env.get_template('mpv3_FL1.j2')
+# template2 = env.get_template('mpv3_FL2.j2')
+template = env.get_template('mpv3.j2')
 
 # Read data2
-data2 = read_csv('SW_template_mapping.csv')
+data2_1 = read_csv('FL1_newSW.csv')
+data2_2 = read_csv('FL2_newSW.csv')
+
+# Filter out and order WAP and DVR rows from data2
+wap_rows_FL1 = [row for row in data2_1 if 'wap' in row.get('device', '').lower()]
+dvr_rows_FL1 = [row for row in data2_1 if 'dvr' in row.get('device', '').lower()]
+wap_rows_FL2 = [row for row in data2_2 if 'wap' in row.get('device', '').lower()]
+dvr_rows_FL2 = [row for row in data2_2 if 'dvr' in row.get('device', '').lower()]
+
 
 # Process each data1 CSV file individually
 for filename in os.listdir(folder_path):
@@ -30,14 +37,15 @@ for filename in os.listdir(folder_path):
 
         # Prepare combined data
         combined_data = []
+        wap_index, dvr_index = 0, 0  # To keep track of WAP and DVR rows in data2
         for row1 in data1:
             device_value1 = row1.get('device', '').lower()
-            if device_value1 in [fv.lower() for fv in filter_values]:
-                for row2 in data2:
-                    device_value2 = row2.get('device', '').lower()
-                    if device_value1 == device_value2:
-                        combined_data.append((row1, row2))
-                        break  # Stop after the first exact match
+            if 'wap' in device_value1 and wap_index < len(wap_rows_FL2):
+                combined_data.append((row1, wap_rows_FL2[wap_index]))
+                wap_index += 1
+            elif 'dvr' in device_value1 and dvr_index < len(dvr_rows_FL2):
+                combined_data.append((row1, dvr_rows_FL2[dvr_index]))
+                dvr_index += 1
 
         # Render the template
         output = template.render(combined_data=combined_data)

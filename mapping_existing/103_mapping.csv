@@ -3,3 +3,4 @@ sw,port,status,device
 103,g1/0/9,not,FL2_wap1
 104,g1/0/12,not,DVR1
 105,g1/0/11,not,DVR2
+105,g1/0/17,not,atm

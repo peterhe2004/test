@@ -1,0 +1,4 @@
+
+{% for row in ports -%}
+{{ row['port'] }}{% if row['status'] %} - {{ row['status'] }}{% endif %}{% if row['device'] %} - {{ row['device'] }}{% endif %}
+{% endfor %}

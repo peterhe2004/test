@@ -1,7 +1,0 @@
-$ python port_mapping_v3.py
-Traceback (most recent call last):
-  File "C:\Users\phe\Documents\tech\test\port_mapping_v3.py", line 19, in <module>
-    sw_value = row['sw']
-               ~~~^^^^^^
-TypeError: list indices must be integers or slices, not str
-(venv)
