@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d2" for="edge" attr.name="status" attr.type="string" />
+  <key id="d1" for="edge" attr.name="DPort" attr.type="string" />
+  <key id="d0" for="edge" attr.name="SPort" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="Router_101" />
+    <node id="WAP1" />
+    <node id="SW2" />
+    <node id="printer1" />
+    <node id="DVR1" />
+    <node id="printer2" />
+    <node id="Router_200" />
+    <node id="DVR2" />
+    <node id="DVR3" />
+    <node id="WAP4" />
+    <node id="Router_301" />
+    <node id="Router_401" />
+    <node id="printer3" />
+    <edge source="Router_101" target="WAP1" id="0">
+      <data key="d0">g1/0/1</data>
+      <data key="d1">g1</data>
+      <data key="d2">connected</data>
+    </edge>
+    <edge source="Router_101" target="SW2" id="0">
+      <data key="d0">g1/0/2</data>
+      <data key="d1">g2</data>
+      <data key="d2">not</data>
+    </edge>
+    <edge source="Router_101" target="printer1" id="0">
+      <data key="d0">g1/0/7</data>
+      <data key="d1">e1</data>
+      <data key="d2">connected</data>
+    </edge>
+    <edge source="Router_101" target="DVR1" id="0">
+      <data key="d0">g1/0/47</data>
+      <data key="d1">e1</data>
+      <data key="d2">connected</data>
+    </edge>
+    <edge source="Router_101" target="printer2" id="0">
+      <data key="d0">g1/0/48</data>
+      <data key="d1">e2</data>
+      <data key="d2">connected</data>
+    </edge>
+    <edge source="SW2" target="Router_200" id="0">
+      <data key="d0">g1/0/45</data>
+      <data key="d1">e2</data>
+      <data key="d2">not</data>
+    </edge>
+    <edge source="SW2" target="Router_301" id="0">
+      <data key="d0">g1/0/2</data>
+      <data key="d1">g2</data>
+      <data key="d2">not</data>
+    </edge>
+    <edge source="Router_200" target="DVR2" id="0">
+      <data key="d0">g1/0/8</data>
+      <data key="d1">g1</data>
+      <data key="d2">connected</data>
+    </edge>
+    <edge source="Router_200" target="DVR3" id="0">
+      <data key="d0">g1/0/18</data>
+      <data key="d1">g1</data>
+      <data key="d2">connected</data>
+    </edge>
+    <edge source="Router_200" target="WAP4" id="0">
+      <data key="d0">g1/0/35</data>
+      <data key="d1">e2</data>
+      <data key="d2">not</data>
+    </edge>
+    <edge source="Router_401" target="printer3" id="0">
+      <data key="d0">g1/0/7</data>
+      <data key="d1">e1</data>
+      <data key="d2">connected</data>
+    </edge>
+  </graph>
+</graphml>
