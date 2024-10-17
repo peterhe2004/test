@@ -1,0 +1,30 @@
+(venv) PS C:\Users\phe\Documents\tech\test> python .\diagram_v6.py
+print out edge_data
+       Source   sw    SPort     status    Target DPort
+0  Router_101  101   g1/0/1  connected      WAP1    g1
+1  Router_101  101   g1/0/2        not      WAP1    g2
+2  Router_101  102   g1/0/7  connected  printer1    e1
+3  Router_101  103   g1/0/8        not       NaN   NaN
+4  Router_101  201  g1/0/47  connected      DVR1    e1
+
+Adding edges to the graph:
+Adding edge: Router_101 -> WAP1
+Adding edge: Router_101 -> WAP1
+Adding edge: Router_101 -> printer1
+Adding edge: Router_101 -> DVR1
+Adding edge: Router_101 -> printer2
+Adding edge: Router_200 -> WAP2
+Adding edge: Router_200 -> DVR2
+
+Assigning node positions:
+Processing group for source: Router_101
+Positioning source Router_101 at (-1, 6)
+Positioning target WAP1 at (1, 6)
+Positioning target printer1 at (1, 5)
+Positioning target DVR1 at (1, 4)
+Positioning target printer2 at (1, 3)
+Processing group for source: Router_200
+Positioning source Router_200 at (-1, 0)
+Positioning target WAP2 at (1, 0)
+Positioning target DVR2 at (1, -1)
+(venv) PS C:\Users\phe\Documents\tech\test>
