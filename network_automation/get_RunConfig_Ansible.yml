@@ -1,0 +1,14 @@
+- name: get Config using NetConf
+  hosts: cisco_switches
+  gather_facts: no
+  connection: ansible.netcommon.netconf
+  tasks:
+    - name: get the running configuration
+      ansible.netcommon.netconf_get:
+        source: running
+      register: running_config_output
+
+    - name: export config
+      copy:
+        content: "{{ running_config_output.xml }}"
+        dest: "running_configs/{{ inventory_hostname }}_running_config.xml"

@@ -1,0 +1,38 @@
+on SW:
+    enable
+    configure terminal
+    netconf-yang
+    end
+
+on Linux:
+    bash
+    pip install ncclient
+    
+    
+Playbook:
+
+- name: get Config using NetConf
+  hosts: cisco_switches
+  gather_facts: no
+  connection: ansible.netcommon.netconf
+  tasks:
+    - name: get the running configuration
+      ansible.netcommon.netconf_get:
+        source: running
+      register: running_config_output
+
+    - name: export config
+      copy:
+        content: "{{ running_config_output.xml }}"
+        dest: "running_configs/{{ inventory_hostname }}_running_config.xml"
+     
+     
+Ansible inventory.ini:
+
+[cisco_switches]
+switch1 ansible_host=10.0.0.1 ansible_network_os=cisco.ios.ios ansible_user=admin ansible_password=xxxxxxxx ansible_connection=netconf
+switch2 ansible_host=10.0.0.2 ansible_network_os=cisco.ios ansible_user=admin ansible_password=password ansible_connection=netconf
+switch3 ansible_host=10.0.0.3 ansible_network_os=cisco.ios ansible_user=admin ansible_password=password ansible_connection=netconf
+
+
+ansible-playbook -i inventory.ini get_RunConfig_Ansible.yml
