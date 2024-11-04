@@ -1,0 +1,21 @@
+---
+datacenter:
+  children:
+    network:
+    webservers:
+    
+network:
+  children:
+    leafs:
+    spines:
+  vars:
+    ansible_connection: ansible.netcommon.network_cli
+    ansible_network_os: vyos.vyos.vyos
+    ansible_user: vyos
+
+spines:
+  hosts:
+    spine01:
+      ansible_host: 192.168.8.202
+      ansible_network_os: vyos.vyos.vyos
+      ansible_user: vyos      

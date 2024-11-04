@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: true
+  vars:
+    created_username: PHe
+
+  tasks:
+    - name: ping
+      ansible.builtin.ping:
+
+    - name: for idempotency, use full-form commands
+      vyos.vyos.vyos_config:
+        lines:
+          # - set int eth eth2 description 'OUTSIDE'
+        - set interface ethernet eth1 description 'OUTSIDE'
+
+    - name: configurable backup path
+      vyos.vyos.vyos_config:
+        backup: yes
+        backup_options:
+          filename: backup.cfg
+          dir_path: /home/ubt18-vm2
