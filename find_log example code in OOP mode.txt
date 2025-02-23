@@ -1,0 +1,170 @@
+import csv
+import re
+import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from netmiko import ConnectHandler
+import keyring
+
+# ----------------------------------------------------------------
+# Device class represents a single device (each row in your CSV)
+# ----------------------------------------------------------------
+class Device:
+    def __init__(self, row: dict):
+        self.ip_address = row.get("IP_Address")
+        self.hostname = row.get("hostname")
+        self.device_type = row.get("device_type", "cisco_ios")
+        # Convert mitigated string to boolean; default to False if not present
+        self.mitigated = row.get("mitigated", "False") == "True"
+        self.username = row.get("username", "usr")
+    
+    def to_dict(self):
+        """Return a dictionary representation for CSV output."""
+        return {
+            "IP_Address": self.ip_address,
+            "hostname": self.hostname,
+            "device_type": self.device_type,
+            "mitigated": str(self.mitigated),
+            "username": self.username
+        }
+
+# ----------------------------------------------------------------
+# DeviceProcessor handles connecting to a device and processing it
+# ----------------------------------------------------------------
+class DeviceProcessor:
+    def __init__(self, keyword: str = "YES"):
+        self.keyword = keyword
+
+    def get_credentials(self, device: Device) -> dict:
+        """Return credentials for Netmiko based on the device."""
+        return {
+            "ip": device.ip_address,
+            "username": device.username,
+            "password": keyring.get_password("company", device.username)
+        }
+
+    def get_running_config(self, connection) -> str:
+        """Retrieve the running configuration via Netmiko."""
+        return connection.send_command("show running-config")
+
+    @staticmethod
+    def count_keyword(text: str, keyword: str) -> int:
+        """Count occurrences of the keyword (case-insensitive, whole-word) in text."""
+        if not isinstance(text, str):
+            text = " ".join(text)
+        matches = re.findall(rf"(?i)\b{keyword}\b", text)
+        return len(matches)
+
+    def process_device(self, device: Device) -> dict:
+        """
+        Process a device:
+         - Skip if already mitigated.
+         - Otherwise, connect, retrieve config, count keywords, and mark as mitigated.
+        Returns a dictionary with processing results.
+        """
+        result = {
+            "hostname": device.hostname,
+            "IP_Address": device.ip_address,
+            "status": "Skipped" if device.mitigated else "Processed",
+            "keyword_count": 0,
+            "error": ""
+        }
+        
+        if device.mitigated:
+            print(f"Skipping {device.hostname} ({device.ip_address}), already mitigated.")
+            return result
+        
+        print(f"Processing {device.hostname} ({device.ip_address})...")
+        try:
+            connection = ConnectHandler(**self.get_credentials(device))
+            config = self.get_running_config(connection)
+            count = self.count_keyword(config, self.keyword)
+            print(f"Keyword '{self.keyword}' appears {count} times in {device.hostname}")
+            result["keyword_count"] = count
+            result["status"] = "Mitigated"
+            # Mark the device as mitigated so it won’t be processed again
+            device.mitigated = True
+        except Exception as e:
+            print(f"Failed to process {device.hostname} ({device.ip_address}): {e}")
+            result["status"] = "Error"
+            result["error"] = str(e)
+        
+        return result
+
+# ----------------------------------------------------------------
+# CSVManager handles reading from and writing to CSV files
+# ----------------------------------------------------------------
+class CSVManager:
+    @staticmethod
+    def read_devices_from_csv(filename: str) -> list:
+        devices = []
+        with open(filename, 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                devices.append(Device(row))
+        return devices
+
+    @staticmethod
+    def write_devices_to_csv(devices: list, filename: str):
+        if not devices:
+            print("No devices to write.")
+            return
+        fieldnames = list(devices[0].to_dict().keys())
+        with open(filename, 'w', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for device in devices:
+                writer.writerow(device.to_dict())
+        print(f"Devices updated and saved to {filename}")
+
+    @staticmethod
+    def write_results_to_csv(results: list, filename: str):
+        if not results:
+            print("No results to write.")
+            return
+        fieldnames = list(results[0].keys())
+        with open(filename, 'w', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for row in results:
+                writer.writerow(row)
+        print(f"Results saved to {filename}")
+
+# ----------------------------------------------------------------
+# MitigationApp ties everything together
+# ----------------------------------------------------------------
+class MitigationApp:
+    def __init__(self, devices_file: str, output_prefix: str = "output_results"):
+        self.devices_file = devices_file
+        self.output_prefix = output_prefix
+        self.devices = CSVManager.read_devices_from_csv(devices_file)
+        self.processor = DeviceProcessor(keyword="YES")
+
+    def run(self):
+        # Process only unmitigated devices
+        devices_to_process = [d for d in self.devices if not d.mitigated]
+        if not devices_to_process:
+            print("All devices are already mitigated. Nothing to do.")
+            return
+
+        results = []
+        max_threads = 10  # Adjust based on your system
+        with ThreadPoolExecutor(max_workers=max_threads) as executor:
+            future_to_device = {executor.submit(self.processor.process_device, device): device
+                                for device in devices_to_process}
+            for future in as_completed(future_to_device):
+                res = future.result()
+                results.append(res)
+        
+        # Write updated device inventory (mitigation status updated)
+        CSVManager.write_devices_to_csv(self.devices, self.devices_file)
+        # Write a separate log file with processing results
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_filename = f"{self.output_prefix}_{timestamp}.csv"
+        CSVManager.write_results_to_csv(results, output_filename)
+
+# ----------------------------------------------------------------
+# Main entry point
+# ----------------------------------------------------------------
+if __name__ == "__main__":
+    app = MitigationApp("devices_inventory.csv")
+    app.run()
