@@ -12,10 +12,19 @@ G = nx.MultiGraph()
 
 # Add edges with attributes (such as SPort and DPort), skipping rows with missing Target
 print("\nAdding edges to the graph:")
+edge_id = 0  # Initialize a counter for unique edge IDs
 for index, row in edge_data.iterrows():
     if pd.notna(row['Target']):  # Skip rows where Target is NaN
         print(f"Adding edge: {row['Source']} -> {row['Target']} with SPort: {row['SPort']} and DPort: {row['DPort']}")
-        G.add_edge(row['Source'], row['Target'], SPort=row['SPort'], DPort=row['DPort'], status=row['status'])
+        G.add_edge(
+            row['Source'], 
+            row['Target'], 
+            key=edge_id,  # Use the counter as the unique edge ID
+            SPort=row['SPort'], 
+            DPort=row['DPort'], 
+            status=row['status']
+        )
+        edge_id += 1  # Increment the counter for the next edge
     else:
         print(f"Skipping row {index} due to missing Target.")
 
@@ -74,11 +83,17 @@ edge_labels = {(row['Source'], row['Target']): f"{str(row['Source']) + '.' + str
 nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 
 # Export the graph to GraphML format
-graphml_filename = "network_topo_v7.graphml"
-nx.write_graphml(G, graphml_filename)
-print(f"Graph exported to {graphml_filename}")
+# graphml_filename = "network_topo_v7.graphml"
+# nx.write_graphml(G, graphml_filename)
+# print(f"Graph exported to {graphml_filename}")
+
+svg_filename = "network_topo_v7.svg"
+plt.savefig(svg_filename, format="svg") # Save the plot as SVG file
+print(f"Graph exported to {svg_filename}")    
+# print(f"Graph exported to {graphml_filename}")
+
 
 # Show the plot
-plt.savefig('show_neighbor_topo7.png')
-plt.show(block=True)
+# plt.savefig('show_neighbor_topo7.png')
+# plt.show(block=True)
 
