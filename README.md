@@ -4,4 +4,4 @@ DB_related: for manipulating excel and database files
 
 Network_diagram: for diagram automation
 
-bookstore: for function tests
+network_automation:  testing sending bulk configurations with Netmiko
