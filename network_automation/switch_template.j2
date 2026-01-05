@@ -1,0 +1,19 @@
+!
+hostname {{ hostname }}
+!
+description Location: {{ site }}
+!
+{% if loop_ip -%}
+interface Loopback0
+ description Router-ID
+ ip address {{ loop_ip }} 255.255.255.255
+{% endif -%}
+!
+{% if mgmt_ip -%}
+interface Management0
+ description Out-of-Band Management
+ ip address {{ mgmt_ip }} 255.255.255.0
+ no shutdown
+{% endif -%}
+!
+end
