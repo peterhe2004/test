@@ -1,0 +1,9 @@
+interface,ip_address,subnet_mask,vrf
+Loopback0,1.1.1.1,255.255.255.255,Global
+Embedded-Service-Engine0/0,1.1.1.1,255.255.255.255,Global
+GigabitEthernet0/0,10.1.1.1,255.255.255.252,Global
+GigabitEthernet0/1,10.1.2.2,255.255.255.0,Global
+GigabitEthernet0/2,10.1.2.2,255.255.255.0,Global
+ATM0/0/0,10.1.2.2,255.255.255.0,Global
+Dialer1,10.1.2.2,255.255.255.0,Global
+Dialer2,10.1.2.2,255.255.255.0,Global

@@ -1,0 +1,2 @@
+Protocol,Instance_AS,Context,Configuration
+EIGRP,REDACTED,ipv4 unicast autonomous-system 1,network 10.0.0.0

@@ -1,0 +1,11 @@
+interface,ip_address,subnet_mask,vrf,status
+Loopback0,1.1.1.1,255.255.255.255,Global,Up
+Null0,N/A,N/A,Global,Up
+Embedded-Service-Engine0/0,N/A,N/A,Global,Shutdown
+GigabitEthernet0/0,10.1.1.1,255.255.255.252,Global,Up
+GigabitEthernet0/1,10.1.2.2,255.255.255.0,Global,Up
+GigabitEthernet0/2,N/A,N/A,Global,Shutdown
+ATM0/0/0,N/A,N/A,Global,Shutdown
+ATM0/0/0.38 point-to-point,N/A,N/A,Global,Up
+Dialer1,Negotiated,Negotiated,Global,Up
+Dialer2,Negotiated,Negotiated,Global,Shutdown

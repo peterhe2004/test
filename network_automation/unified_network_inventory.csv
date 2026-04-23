@@ -1,0 +1,12 @@
+Type,Primary_ID,Detail_1,Detail_2,Context/VRF,Status
+Interface,Loopback0,1.1.1.1,255.255.255.255,Global,Up
+Interface,Null0,N/A,N/A,Global,Up
+Interface,Embedded-Service-Engine0/0,N/A,N/A,Global,Shutdown
+Interface,GigabitEthernet0/0,10.1.1.1,255.255.255.252,Global,Up
+Interface,GigabitEthernet0/1,10.1.2.2,255.255.255.0,Global,Up
+Interface,GigabitEthernet0/2,N/A,N/A,Global,Shutdown
+Interface,ATM0/0/0,N/A,N/A,Global,Shutdown
+Interface,ATM0/0/0.38 point-to-point,N/A,N/A,Global,Up
+Interface,Dialer1,Negotiated,Negotiated,Global,Up
+Interface,Dialer2,Negotiated,Negotiated,Global,Shutdown
+Routing (EIGRP),REDACTED,network 10.0.0.0,N/A,ipv4 unicast autonomous-system 1,N/A

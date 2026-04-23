@@ -1,0 +1,103 @@
+Type,Primary_ID,Detail_1,Detail_2,Context/VRF,Status
+Interface,Loopback0,1.1.1.1,255.255.255.255,Global,Up
+Interface,Null0,N/A,N/A,Global,Up
+Interface,Embedded-Service-Engine0/0,N/A,N/A,Global,Shutdown
+Interface,GigabitEthernet0/0,10.1.1.1,255.255.255.252,Global,Up
+Interface,GigabitEthernet0/1,10.1.2.2,255.255.255.0,Global,Up
+Interface,GigabitEthernet0/2,N/A,N/A,Global,Shutdown
+Interface,ATM0/0/0,N/A,N/A,Global,Shutdown
+Interface,ATM0/0/0.38 point-to-point,N/A,N/A,Global,Up
+Interface,Dialer1,Negotiated,Negotiated,Global,Up
+Interface,Dialer2,Negotiated,Negotiated,Global,Shutdown
+Routing (EIGRP),REDACTED,network 10.0.0.0,N/A,ipv4 unicast autonomous-system 1,N/A
+Named IP ACL,NAT-LIST,permit 192.168.0.0 0.0.255.255,N/A,N/A,N/A
+Named IP ACL,NAT-LIST,deny   any,N/A,N/A,N/A
+Named IP ACL,SNMP-RO,permit x.x.x.x,N/A,N/A,N/A
+Named IP ACL,SNMP-RO,permit x.x.x.x,N/A,N/A,N/A
+Named IP ACL,SNMP-RO,deny   any log,N/A,N/A,N/A
+Named IP ACL,login-quiet-mode,permit x.x.x.x,N/A,N/A,N/A
+Named IP ACL,login-quiet-mode,deny   any log,N/A,N/A,N/A
+Numbered ACL,1,permit 10.1.1.0 0.0.0.255 log,N/A,N/A,N/A
+Numbered ACL,1,remark # Management VTY Access #,N/A,N/A,N/A
+Numbered ACL,1,permit 10.1.2.0 0.0.0.255 log,N/A,N/A,N/A
+Numbered ACL,1,permit 192.168.0.0 0.0.255.255 log,N/A,N/A,N/A
+Numbered ACL,1,deny any log,N/A,N/A,N/A
+Numbered ACL,100,permit udp any any eq bootpc,N/A,N/A,N/A
+Numbered ACL,100,remark access-list for verify unicast source command,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 1 permit udp any any eq 546 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 2 permit tcp host 2606:4700:4700::1111 eq domain any,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 3 permit udp host 2606:4700:4700::1111 eq domain any,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 4 permit tcp host 2606:4700:4700::1001 eq domain any,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 5 permit udp host 2606:4700:4700::1001 eq domain any,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 30 deny ipv6 ::FFFF:0.0.0.0/96 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 31 deny ipv6 any ::FFFF:0.0.0.0/96 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 32 deny ipv6 host :: any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 33 deny ipv6 any host :: log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 34 deny ipv6 host ::1 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 35 deny ipv6 any host ::1 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 36 deny ipv6 FF00::/8 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 37 deny ipv6 ::/96 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 38 deny ipv6 any ::/96 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 40 deny ipv6 ::224.0.0.0/100 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 ::127.0.0.0/104 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 ::/104 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 ::255.0.0.0/104 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002:E000::/20 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002:7F00::/24 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002::/24 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002:FF00::/24 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002:A00::/24 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002:AC10::/28 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 2002:C0A8::/32 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,permit icmp FE80::/10 any nd-na,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,permit icmp FE80::/10 any nd-ns,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 161 permit icmp FE80::/10 any router-advertisement,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 170 deny ipv6 FEC0::/10 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 171 deny ipv6 any FEC0::/10 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 180 deny ipv6 FC00::/7 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 181 deny ipv6 any FC00::/7 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 190 deny ipv6 2002:DB8::/32 any,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,deny ipv6 3FFE::/16 any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 201 deny ipv6 any 3FFE::/16 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 210 deny ipv6 any any routing-type 0 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 211 deny ipv6 any any log undetermined-transport,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 212 deny tcp any any eq 3389,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 213 deny tcp any any lt 1025 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 214 deny udp any any lt 1025 log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 220 permit icmp any any log,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 221 permit tcp any eq www any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 222 permit tcp any eq 443 any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 223 permit tcp any eq 22 any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 224 permit tcp any eq ftp-data any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 225 permit tcp any eq nntp any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 226 permit tcp any eq pop3 any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 227 permit tcp any eq smtp any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 228 permit udp any eq ntp any gt 1024,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 229 permit tcp any any established,N/A,N/A,N/A
+Named IPV6 ACL,Inbound6,sequence 230 permit ipv6 any any,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 1 permit udp any any eq 547,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 2 permit tcp any host 2606:4700:4700::1111 eq domain,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 3 permit udp any host 2606:4700:4700::1111 eq domain,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 4 permit tcp any host 2606:4700:4700::1001 eq domain,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 5 permit udp any host 2606:4700:4700::1001 eq domain,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 30 deny ipv6 3FFE::/16 any log,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 39 deny ipv6 FEC0::/10 any log,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 40 deny ipv6 host :: any log,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 41 deny ipv6 FC00::/7 any log,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 50 deny ipv6 host ::1 any log,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit icmp FE80::/10 any nd-na,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit icmp FE80::/10 any nd-ns,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit icmp FE80::/10 any router-solicitation,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,deny icmp FE80::/10 any router-advertisement,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit icmp any any log,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit tcp any gt 1024 any eq www,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit tcp any gt 1024 any eq 443,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,permit tcp any any established,N/A,N/A,N/A
+Named IPV6 ACL,Outbound6,sequence 150 permit ipv6 any any,N/A,N/A,N/A
+Named IPV6 ACL,VTY,permit ipv6 2001:db8:acad::/64 any log-input,N/A,N/A,N/A
+Named IPV6 ACL,VTY,permit ipv6 2001:db8:acad:10::/64 any log-input,N/A,N/A,N/A
+Named IPV6 ACL,VTY,permit ipv6 2001:db8:acad:9::/64 any log-input,N/A,N/A,N/A
+Named IPV6 ACL,VTY,permit ipv6 2001:db8:acad:8::/64 any log-input,N/A,N/A,N/A
+Named IPV6 ACL,VTY,deny ipv6 any any log-input,N/A,N/A,N/A
+Named IPV6 ACL,verify-unicast-source,permit udp any any eq bootpc,N/A,N/A,N/A
+Named IPV6 ACL,verify-unicast-source,permit udp any any eq 546,N/A,N/A,N/A
