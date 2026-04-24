@@ -1,0 +1,8 @@
+AAAA_sub-sw2# show cdp neighbors
+
+ 
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater
+ 
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+AAAA_coreSW   Gi1/0/1        122          T S       N9300   Eth 0/12

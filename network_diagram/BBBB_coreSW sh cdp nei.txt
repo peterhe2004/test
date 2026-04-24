@@ -1,0 +1,11 @@
+BBBB_coreSW# show cdp neighbors
+
+ 
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater
+ 
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+BBBB_sub-sw1   Eth 0/11        122          T S       WS-C2960x  Gi1/11
+BBBB_sub-sw1   Eth 0/21        122          T S       WS-C2960x  Gi2/11
+BBBB_sub-sw2  Eth 0/12       179           R        c4507      Gi1/0/1
+BBBB_WAN-1   Eth 0/1        155           R        2500      Eth 0
