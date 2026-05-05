@@ -94,6 +94,6 @@ print(f"Graph exported to {svg_filename}")
 
 
 # Show the plot
-# plt.savefig('show_neighbor_topo7.png')
+plt.savefig('show_neighbor_topo7.png')
 # plt.show(block=True)
 
