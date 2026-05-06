@@ -19,6 +19,24 @@ def get_device_type(node):
         return "OTHER"
 
 
+def build_device_side_map(edge_data):
+    side_map = {}
+
+    for _, row in edge_data.iterrows():
+        side = str(row.get("device_side", "")).upper()
+
+        if side not in ["A", "B"]:
+            side = "UNKNOWN"
+
+        if pd.notna(row["Source"]):
+            side_map[row["Source"]] = side
+
+        if pd.notna(row["Target"]):
+            side_map[row["Target"]] = side
+
+    return side_map
+
+
 def hierarchical_layout(G):
     layer_y = {
         "RT": 6,
@@ -27,48 +45,59 @@ def hierarchical_layout(G):
         "OTHER": 0,
     }
 
-    # layer_x = {
-    #     "A": -6,
-    #     "B": 6,
-    #     "UNKNOWN": 0,
-    # }
-
-
-
-
-    groups = {
-        "RT": [],
-        "CORE": [],
-        "STACK": [],
-        "OTHER": [],
+    layer_x = {
+        "A": -6,
+        "B": 6,
+        "UNKNOWN": 0,
     }
 
+    groups = { }
+
     for node in G.nodes():
-        groups[get_device_type(node)].append(node)
+        dev_type = get_device_type(node)
+        side = side_map.get(node, "UNKNOWN")
+
+        key = (dev_type, side)
+
+        if key not in groups:
+            groups[key] = []
+
+        groups[key].append(node)
 
     pos = {}
 
-    for device_type, nodes in groups.items():
+    for (device_type, side), nodes in groups.items():
         nodes = sorted(nodes)
-        y = layer_y[device_type]
 
-        if not nodes:
-            continue
+        base_y = layer_y[device_type]
+        base_x = layer_x[side]
 
-        if device_type == "OTHER":
-            for i, node in enumerate(nodes):
-                side = -1 if i % 2 == 0 else 1
-                x = side * 6
-                y_offset = -(i // 2) * 0.8
-                pos[node] = (x, y + y_offset)
-        else:
-            spacing = 3
-            count = len(nodes)
-            start_x = -((count - 1) * spacing) / 2
+        spacing_y = 0.8
+        spacing_x = 2.5
 
-            for i, node in enumerate(nodes):
-                x = start_x + i * spacing
-                pos[node] = (x, y)
+        for i, node in enumerate(nodes):
+            x = base_x + spacing_x * (i % 3 - 1 )
+            y = base_y + spacing_y * (i // 3)
+
+            pos[node] = (x, y)
+
+        # if not nodes:
+        #     continue
+        #
+        # if device_type == "OTHER":
+        #     for i, node in enumerate(nodes):
+        #         side = -1 if i % 2 == 0 else 1
+        #         x = side * 6
+        #         y_offset = -(i // 2) * 0.8
+        #         pos[node] = (x, y + y_offset)
+        # else:
+        #     spacing = 3
+        #     count = len(nodes)
+        #     start_x = -((count - 1) * spacing) / 2
+        #
+        #     for i, node in enumerate(nodes):
+        #         x = start_x + i * spacing
+        #         pos[node] = (x, y)
 
     return pos
 
@@ -179,7 +208,9 @@ for index, row in edge_data.iterrows():
 # ==============================
 # Apply hierarchical layout
 # ==============================
-pos = hierarchical_layout(G)
+
+side_map = build_device_side_map(edge_data)
+pos = hierarchical_layout(G, side_map)
 
 
 # ==============================
