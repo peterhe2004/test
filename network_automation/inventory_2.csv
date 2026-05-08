@@ -1,0 +1,6 @@
+sw,port,status,show_ver,Key
+102,g1/0/6,connected,printer,Key 7 xxxx \n   Key 7 yyyyyyy    \n\n
+102,g1/0/7,connected,"
+C\nCodes: \nC             10.199.199.0/24 is directly connected, Vlan199\nC             10.199.198.0/24 is directly connected, Gig1/0/48\n",
+102,g1/0/8,connected,WAP,
+102,g1/0/9,connected,WAP,

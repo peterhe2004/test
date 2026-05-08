@@ -13,21 +13,25 @@ patterns = {
     "SCP_Server": re.compile(r'(?im)^\s*(ip\s+scp\s+server.*)$'),
     "Lobby_Admin": re.compile(r'(?i)\blobby-admin\b'),
     "Serial_Number": re.compile(r'(?im)system\s+serial\s+number\s*:\s*([A-Za-z0-9]{11})'),
-    "subnets": re.compile(r'\nC\s+(\d+\.\d+\.\d+\.\d+/\d+)\s+is directly connected,\s+(.+)\n')
+    "subnets": re.compile(
+    r'(?im)^\s*C\s+(\d+\.\d+\.\d+\.\d+/\d+)\s+is directly connected,\s*([^\r\n]+)'
+)
 }
 
 def extract_and_count(text, regex):
     if pd.isna(text):
         return pd.Series([None, 0])
 
-    matches = regex.findall(str(text))
+    text = str(text).replace("\\n", "\n")
+
+    matches = regex.findall(text)
     if not matches:
         return pd.Series([None, 0])
 
     cleaned = []
     for m in matches:
         if isinstance(m, tuple):
-            cleaned.append(m[0])
+            cleaned.append(" -> ".join(m))
         else:
             cleaned.append(m)
 
