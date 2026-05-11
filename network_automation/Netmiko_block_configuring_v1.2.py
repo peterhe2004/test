@@ -27,14 +27,14 @@ def copy_running_to_tftp(connection, tftp_server="192.168.1.1", tftp_path="tftp-
         "output": output
     }
 
-def configure_logging(connection):
+def push_config(connection):
     config_block = [
-        "logging host xxxx",
-        "logging trap xxxx"
+        "show interface status",
+        "show interface trunk"
     ]
     output = connection.send_config_set(config_block)
     return {
-        "sent_command": "configure_logging",
+        "sent_command": "push_config",
         "output": output
     }   
 
@@ -72,7 +72,7 @@ def send_configuration_to_device(device_info):
         time.sleep(10)
 
         # apply the changes
-        results.append(configure_logging(connection))
+        results.append(push_config(connection))
 
         # save changes
         results.append(save_configuration(connection))
